@@ -1,0 +1,14 @@
+my-app/
+└── src/                    # Or name it 'app/'
+    ├── assets/            # Images, fonts, icons, etc.
+    │   ├── images/
+    │   └── fonts/
+    ├── components/        # Reusable UI components (e.g., Button, Card)
+    ├── screens/           # App screens (e.g., HomeScreen, LoginScreen)
+    ├── navigation/        # Navigation setup (e.g., stack, tab navigators)
+    ├── services/          # API calls, auth, backend services
+    ├── store/             # Redux, Zustand, or other state management
+    ├── hooks/             # Custom React hooks
+    ├── utils/             # Helper functions, constants
+    ├── contexts/          # React Context providers (if used)
+    └── App.js             # Main app component
