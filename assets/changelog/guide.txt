@@ -1,0 +1,2 @@
+-run npm i expo-router and chnage the main in package.json to expo entry
+-added new ui to the index.jsx as that is the entry point to the app, app.js is not used even if it it imported in index.jsx 
