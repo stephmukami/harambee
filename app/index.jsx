@@ -26,7 +26,7 @@ export default function HomeScreen() {
         
         <View style={[styles.dot, styles.activeDot]} />
 
-         <Pressable onPress={() => setPasswordError("Password must be at least 6 characters")}>
+         <Pressable onPress={() => router.push("/firstOnboarding")}>
             <View style={styles.dot} />
         </Pressable>
 
@@ -45,7 +45,7 @@ export default function HomeScreen() {
       </Pressable>
 
       {/* Log In Link */}
-      <Text style={styles.loginLink} onPress={() => router.push("/login")}>
+      <Text style={styles.loginLink} onPress={() => router.push("/homePage")}>
         Have an account? <Text style={{ fontWeight: "600" }}>Log in.</Text>
       </Text>
     </View>

@@ -5,7 +5,8 @@ export const COLORS = {
   greyText: '#71717a',
   blackText:"#000",
   blackBorder:"#ccc",
-  white:"fff"
+  white:"fff",
+  bgGrey:"#f9f9f9"
 };
 
 export const FONTS = {

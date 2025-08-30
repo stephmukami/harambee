@@ -26,6 +26,7 @@ export default function RootLayout() {
           <Stack.Screen name="register" />
           <Stack.Screen name="firstOnboarding" />
           <Stack.Screen name="secondOnboarding" />
+          <Stack.Screen name="homePage" />
 
         </Stack>
       </SafeAreaProvider>

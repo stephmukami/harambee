@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,Alert } from 'react-native'
 import React, {useState} from 'react'
 import { COLORS } from '../assets/theme'
+import { supabase } from '../services/supabase'
+import { useRouter } from 'expo-router';
 
 const login = () => {
+
+  const router = useRouter()
   const [loginDetails,setLoginDetails] = useState({
     email:"",
     password:""
@@ -31,8 +35,42 @@ const login = () => {
     ))
   }
 
-    const handleSubmit = () => {
-    console.log("user details submitted:", userDetails)
+    const isFormValid = 
+  loginDetails.password.trim() !== "" &&
+  loginDetails.email.trim() !== "" 
+  
+
+
+    const handleSubmit = async () => {
+    console.log("user details submitted:", loginDetails)
+    const {email,password} = loginDetails
+    setLoading(true)
+
+    const{data,error} = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    setLoading(false)
+
+    if(error){
+      Alert.alert("Login failed",error.message)
+      console.error("Login error",error)
+
+    }else{
+        Alert.alert("Success", "Log in successfull", [
+          {
+            text: "OK",
+            onPress: () => router.push("/homePage")
+          }
+        ])
+
+    setLoginDetails({
+    email:"",
+    password:""
+  })
+    }
+
   }
 
   return (
@@ -59,9 +97,14 @@ const login = () => {
             secureTextEntry
           />
     
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Log In</Text>
-          </TouchableOpacity>
+             <TouchableOpacity 
+                style={[styles.button, !isFormValid && { opacity: 0.5 }]} 
+                disabled={!isFormValid} 
+                onPress={handleSubmit}
+              >
+                <Text style={styles.buttonText}>{loading ? "Logging in..." : "Log In"}</Text>
+            </TouchableOpacity>
+
         </View>
   )
 }

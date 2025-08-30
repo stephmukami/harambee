@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 const Register = () => {
 
   const router = useRouter()
+  const [loading,setLoading] = useState(false)
   const [userDetails, setUserDetails] = useState({
     firstName: "",
     lastName: "",
@@ -30,51 +31,85 @@ const Register = () => {
   userDetails.email.trim() !== "" &&
   userDetails.password.length >= 6
 
+ 
+
   const handleSubmit = async () => {
+    if (!isFormValid) {
+      Alert.alert("Error", "Please fill in all fields correctly")
+      return
+    }
+
     console.log("user details submitted:", userDetails)
     const { email, password, firstName, lastName } = userDetails
-    // sign up a user
-    const {data,error} = await supabase.auth.signUp({
-      email,
-      password,
-      options:{
-        data:{
-          firstName,
-          lastName
+    
+    setLoading(true) // Enable loading state
+    
+    try {
+      // Sign up a user
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            firstName,
+            lastName,
+            email
+          }
         }
+      })
+
+      if (error) {
+        console.error("Error creating user:", error.message)
+        Alert.alert("Sign Up Error", error.message)
+        return
       }
-    })
 
-    // insert users after  sign up
-    if (data?.user) {
-  await supabase.from("users").insert([
-    { 
-      id: data.user.id, 
-      first_name: firstName, 
-      last_name: lastName 
-    }
-  ])
-}
+      console.log("sign up response:", data)
 
-    if(error){
-      console.error("Eror creating user",error.message)
-    }else{
-       Alert.alert("Success", "User created successfully", [
-      {
-        text: "OK",
-        onPress: () => router.push("/login")
+      // Insert users after sign up
+      if (data?.user) {
+        const { error: insertError } = await supabase.from("users").insert([
+          { 
+            id: data.user.id, 
+            first_name: firstName, 
+            last_name: lastName,
+            email: email
+          }
+        ])
+        
+        if (insertError) {
+          console.error("Error inserting user into users table:", insertError.message)
+          Alert.alert("Database Error", "User created but profile setup failed: " + insertError.message)
+          return
+        }
+
+        // Success - clear form and navigate
+        Alert.alert("Success", "User created successfully", [
+          {
+            text: "OK",
+            onPress: () => router.push("/login")
+          }
+        ])
+
+        setUserDetails({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: ""
+        })
+      } else {
+        console.log("No user data returned from signup")
+        Alert.alert("Error", "User creation failed - no user data returned")
       }
-    ])
-      console.log("sign up response",data,error)
-      setUserDetails({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
-  })
-
+    } catch (err) {
+      console.error("Unexpected error:", err)
+      Alert.alert("Error", "An unexpected error occurred: " + err.message)
+    } finally {
+      setLoading(false) // Disable loading state
     }
   }
+
+ 
 
 
   return (
@@ -130,7 +165,7 @@ const Register = () => {
         disabled={!isFormValid} 
         onPress={handleSubmit}
       >
-        <Text style={styles.buttonText}>Sign Up</Text>
+        <Text style={styles.buttonText}>{loading ? "Signing up..." : "Sign Up"}</Text>
     </TouchableOpacity>
 
     </View>
