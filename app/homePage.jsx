@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Pressable, FlatList,Dimensions } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, Pressable, FlatList,Dimensions,TouchableOpacity  } from "react-native";
+import React, { useState } from "react";
 import { COLORS } from "../assets/theme";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -7,14 +7,27 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { LinearGradient } from "expo-linear-gradient";
 const { width } = Dimensions.get("window")
+import { useRouter } from 'expo-router';
+
 
 const HomePage = () => {
+const router = useRouter()
+const [activeTab,setActiveTab] = useState("deposits")
+
+
   const deposits = [
     { id: "1", amount: 2330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
     { id: "2", amount: 2330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
   ];
 
-  
+    const withdrawals = [
+    { id: "1", amount: 330, date: "04/9/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
+    { id: "2", amount: 330, date: "04/9/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
+  ];
+
+  const toggleActiveTab = (tab) =>{
+      setActiveTab(tab)
+  }
 
   return (
     <View style={styles.container}>
@@ -31,9 +44,13 @@ const HomePage = () => {
           <Text style={styles.projectBalance}>KES 20,000</Text>
     </LinearGradient>
 
+
+
+
       {/* Deposits / Withdrawals */}
       <View style={styles.statsRow}>
-        <View style={styles.statBox}>
+
+        <TouchableOpacity   style={styles.statBox} onPress={()=>toggleActiveTab("deposits")}>
           <View style={styles.dollar}>
               <FontAwesome5 name="money-bill-alt" size={16} color="gray" />
           </View>
@@ -43,20 +60,20 @@ const HomePage = () => {
             <Text style={styles.statValue}>1234</Text>
           </View>
           
-        </View>
+        </TouchableOpacity >
 
         <View style={styles.statDivider} />
-              <View style={styles.statBox}>
-          <View style={styles.dollar}>
-              <FontAwesome5 name="money-bill-alt" size={16} color="gray" />
-          </View>
-          
-          <View>
-            <Text style={styles.statLabel}>Withdrawals</Text>
-            <Text style={styles.statValue}>1234</Text>
-          </View>
-          
-        </View>
+
+              <TouchableOpacity  style={styles.statBox} onPress={()=> toggleActiveTab("withdrawals")}>
+                  <View style={styles.dollar}>
+                      <FontAwesome5 name="money-bill-alt" size={16} color="gray" />
+                  </View>
+                  
+                  <View>
+                    <Text style={styles.statLabel}>Withdrawals</Text>
+                    <Text style={styles.statValue}>1234</Text>
+                  </View>
+              </TouchableOpacity >
       </View>
 
       {/* Progress Bar */}
@@ -73,24 +90,84 @@ const HomePage = () => {
        
       </View>
 
-      {/* Deposits List */}
-      <Text style={styles.sectionTitle}>Deposits</Text>
-      <FlatList
-        data={deposits}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.depositItem}>
-            <View style={styles.iconCircle}>
-              <FontAwesome5 name="coins" size={20} color="gray" />
-            </View>
-            <View style={{ marginLeft: 10 }}>
-              <Text style={styles.depositAmount}>Ksh {item.amount}</Text>
-              <Text style={styles.depositDate}>{item.date}</Text>
-              <Text style={styles.depositRef}>{item.ref}</Text>
-            </View>
-          </View>
-        )}
-      />
+            {
+        activeTab == "deposits" ? 
+        (
+             
+      <View>
+            <View style={styles.depositWithdrawalNav}>
+                <Text style={styles.sectionTitle}>Deposits</Text>
+                  <Pressable style={styles.viewMoreBtn}>
+                    <Text onPress={() => router.push("/deposits")} style={styles.viewMore}>View More</Text>
+                </Pressable>
+              </View>
+              
+              <View  style={styles.flatListParent}>
+
+                      <FlatList
+                data={deposits}
+                style={styles.depositItemParent}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <View style={styles.depositItem}>
+                    <View style={styles.iconCircle}>
+                      <FontAwesome5 name="coins" size={20} color="gray" />
+                    </View>
+                    <View style={{ marginLeft: 10 }}>
+                      <Text style={styles.depositAmount}>Ksh {item.amount}</Text>
+                      <Text style={styles.depositDate}>{item.date}</Text>
+                      <Text style={styles.depositRef}>{item.ref}</Text>
+                    </View>
+                  </View>
+                )}
+              />
+
+              
+
+              </View>
+      </View>
+        ):(
+ 
+      <View>
+            <View style={styles.depositWithdrawalNav}>
+                <Text style={styles.sectionTitle}>Withdrawals</Text>
+                  <Pressable style={styles.viewMoreBtn}>
+                    <Text onPress={() => router.push("/withdrawals")} style={styles.viewMore}>View More</Text>
+                </Pressable>
+              </View>
+              
+              <View  style={styles.flatListParent}>
+
+                      <FlatList
+                data={withdrawals}
+                style={styles.depositItemParent}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <View style={styles.depositItem}>
+                    <View style={styles.iconCircle}>
+                      <FontAwesome5 name="coins" size={20} color="gray" />
+                    </View>
+                    <View style={{ marginLeft: 10 }}>
+                      <Text style={styles.depositAmount}>Ksh {item.amount}</Text>
+                      <Text style={styles.depositDate}>{item.date}</Text>
+                      <Text style={styles.depositRef}>{item.ref}</Text>
+                    </View>
+                  </View>
+                )}
+              />
+
+              
+
+              </View>
+      </View>
+        )
+      }
+
+
+
+  
+  
+
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
@@ -214,9 +291,32 @@ const styles = StyleSheet.create({
     gap:10,
     backgroundColor: "white",
     padding: 15,
-    borderRadius: 12,
-    marginBottom: 10,
-    height:100
+    height:100,
+    borderBottomWidth:1,
+    borderBottomColor:COLORS.blackBorder
+  },
+  depositItemParent:{
+    borderRadius:12
+  },
+  flatListParent:{
+    backgroundColor:"white"
+  },
+  viewMore:{
+    margin:8,
+    color:COLORS.white
+  },
+  viewMoreBtn:{
+    backgroundColor: COLORS.secondaryYellow,
+    width:90,
+    margin:8,
+    borderRadius:7
+
+  },
+  depositWithdrawalNav:{
+    flexDirection:"row",
+    alignItems: "center",
+    justifyContent:"space-between"
+
   },
   iconCircle: {
     width: 55,
