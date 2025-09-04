@@ -45,7 +45,7 @@ export default function HomeScreen() {
       </Pressable>
 
       {/* Log In Link */}
-      <Text style={styles.loginLink} onPress={() => router.push("/homePage")}>
+      <Text style={styles.loginLink} onPress={() => router.push("/login")}>
         Have an account? <Text style={{ fontWeight: "600" }}>Log in.</Text>
       </Text>
     </View>

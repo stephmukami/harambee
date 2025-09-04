@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, FlatList,Dimensions,TouchableOpacity  } from "react-native";
+import { StyleSheet, Text, View, Pressable, FlatList,Dimensions,TouchableOpacity,Animated  } from "react-native";
 import React, { useState } from "react";
 import { COLORS } from "../assets/theme";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -12,6 +12,8 @@ import { useRouter } from 'expo-router';
 
 
 const HomePage = () => {
+
+  
 const router = useRouter()
 const [activeTab,setActiveTab] = useState("deposits")
 
