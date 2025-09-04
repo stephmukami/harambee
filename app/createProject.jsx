@@ -13,6 +13,7 @@ const [loading,setLoading] = useState(false)
 const [projectDetails, setProjectDetails] = useState({
 projectName: "",
 goal:"",
+description:""
 
 })
 
@@ -49,6 +50,7 @@ goal:"",
 
             {
             project_name: projectDetails.projectName,
+            description: projectDetails.description,
             project_goal: projectDetails.goal ? Number(projectDetails.goal) : null,
             user_id: user.id,
             created_at: new Date().toISOString().split("T")[0]
@@ -101,7 +103,15 @@ goal:"",
             required 
           />
     
-          <Text style={styles.label}>Goal</Text>
+          <Text style={styles.label}>Description</Text>
+          <TextInput
+            style={styles.input}
+            value={projectDetails.description}
+            onChangeText={(text) => handleInputChange("description", text)}
+            placeholder="Briefly explain your project"
+          />
+
+              <Text style={styles.label}>Goal</Text>
           <TextInput
             style={styles.input}
             value={projectDetails.goal}

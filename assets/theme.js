@@ -6,7 +6,9 @@ export const COLORS = {
   blackText:"#000",
   blackBorder:"#ccc",
   white:"#fff",
+  offWhite:"#f9f9f9",
   bgGrey:"#f9f9f9"
+  
 };
 
 export const FONTS = {

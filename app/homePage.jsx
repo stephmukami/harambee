@@ -136,6 +136,7 @@ const [activeTab,setActiveTab] = useState("deposits")
         ):(
  
       <View style={styles.flatListWrapper}>
+        
             <View style={styles.depositWithdrawalNav}>
                 <Text style={styles.sectionTitle}>Withdrawals</Text>
                   <Pressable style={styles.viewMoreBtn}>
@@ -248,6 +249,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   dollar:{
     position:"relative",
