@@ -7,6 +7,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { LinearGradient } from "expo-linear-gradient";
 const { width } = Dimensions.get("window")
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { useRouter } from 'expo-router';
 
 
@@ -17,7 +18,11 @@ const [activeTab,setActiveTab] = useState("deposits")
 
   const deposits = [
     { id: "1", amount: 2330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
-    { id: "2", amount: 2330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
+    { id: "2", amount: 3330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
+     { id: "3", amount: 6330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
+    { id: "4", amount: 1330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
+     { id: "33", amount: 9330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
+    { id: "43", amount: 4330, date: "12/2/2025 1.00 PM", ref: "APP/MPESA TR1RQQQX" },
   ];
 
     const withdrawals = [
@@ -94,7 +99,7 @@ const [activeTab,setActiveTab] = useState("deposits")
         activeTab == "deposits" ? 
         (
              
-      <View>
+      <View  style={styles.flatListWrapper}>
             <View style={styles.depositWithdrawalNav}>
                 <Text style={styles.sectionTitle}>Deposits</Text>
                   <Pressable style={styles.viewMoreBtn}>
@@ -128,7 +133,7 @@ const [activeTab,setActiveTab] = useState("deposits")
       </View>
         ):(
  
-      <View>
+      <View style={styles.flatListWrapper}>
             <View style={styles.depositWithdrawalNav}>
                 <Text style={styles.sectionTitle}>Withdrawals</Text>
                   <Pressable style={styles.viewMoreBtn}>
@@ -162,6 +167,20 @@ const [activeTab,setActiveTab] = useState("deposits")
       </View>
         )
       }
+
+         {/* Add a Project*/}
+      <TouchableOpacity style={styles.addProject} onPress={()=> router.push("/createProject")}>
+
+        <TouchableOpacity   style={styles.statBox} onPress={()=>toggleActiveTab("deposits")}>
+         
+         <Text style={styles.addProjectText}>Add a project</Text>
+          
+        </TouchableOpacity >
+
+        <View style={styles.statDivider} />
+            <FontAwesome6 name="add" size={18} color="white" />
+            
+      </TouchableOpacity>
 
 
 
@@ -301,6 +320,10 @@ const styles = StyleSheet.create({
   flatListParent:{
     backgroundColor:"white"
   },
+    flatListWrapper:{
+    height:400
+  },
+
   viewMore:{
     margin:8,
     color:COLORS.white
@@ -339,6 +362,23 @@ const styles = StyleSheet.create({
     color: "#999",
     fontSize: 12,
     fontWeight:450
+  },
+  addProject:{
+    flexDirection: "row",
+    justifyContent: "space-around",
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+    marginTop: "auto",
+    backgroundColor: "white",
+    borderRadius: 12,
+    paddingVertical: 2,
+    alignItems: "center",
+    backgroundColor:COLORS.secondaryYellow,
+    color:COLORS.white
+  },
+  addProjectText:{
+    color:COLORS.white,
+    fontWeight:600
   },
   bottomNav: {
     flexDirection: "row",
