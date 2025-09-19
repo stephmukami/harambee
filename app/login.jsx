@@ -51,6 +51,7 @@ const login = () => {
       password
     })
 
+    console.log("data success login",data)
     setLoading(false)
 
     if(error){
@@ -58,12 +59,21 @@ const login = () => {
       console.error("Login error",error)
 
     }else{
-        Alert.alert("Success", "Log in successfull", [
+
+
+          Alert.alert("Success", "Log in successfull", [
           {
             text: "OK",
             onPress: () => router.push("/homePage")
           }
         ])
+         // Save session to storage
+    const { access_token, refresh_token, user } = data.session;
+    await AsyncStorage.setItem("authToken", access_token);
+    await AsyncStorage.setItem("refreshToken", refresh_token);
+    await AsyncStorage.setItem("user", JSON.stringify(user))
+
+    
 
     setLoginDetails({
     email:"",

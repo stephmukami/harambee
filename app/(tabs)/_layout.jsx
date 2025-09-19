@@ -3,6 +3,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import React, { useState } from "react";
 
 
 
@@ -11,7 +12,7 @@ export default function TabLayout() {
         <Tabs
             screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: "#007AFF",
+                tabBarActiveTintColor: "#F5A227",
             }}
         >
             <Tabs.Screen
