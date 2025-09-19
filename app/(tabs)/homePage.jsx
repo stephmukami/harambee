@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable, FlatList,Dimensions,TouchableOpacity,Animated  } from "react-native";
 import React, { useState } from "react";
-import { COLORS } from "../assets/theme";
+import { COLORS } from "../../assets/theme";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -192,7 +192,8 @@ const [activeTab,setActiveTab] = useState("deposits")
 
 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
+
+      {/* <View style={styles.bottomNav}>
         <Pressable style={styles.navItem}
         onPress={()=>router.push("/homePage")}
         >
@@ -212,7 +213,8 @@ const [activeTab,setActiveTab] = useState("deposits")
           <MaterialIcons name="person" size={24} color="black" />
           <Text>Profile</Text>
         </Pressable>
-      </View>
+      </View> */}
+
     </View>
   );
 };

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View,Dimensions,FlatList,Pressable } from 'react-native'
 import React, { useEffect,useState } from 'react'
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { COLORS } from '../assets/theme'
-import { supabase } from '../services/supabase';
+import { COLORS } from '../../assets/theme'
+import { supabase } from '../../services/supabase';
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 import AntDesign from '@expo/vector-icons/AntDesign';
