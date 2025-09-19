@@ -1,12 +1,17 @@
-import { StyleSheet, Text, View,Dimensions,FlatList } from 'react-native'
+import { StyleSheet, Text, View,Dimensions,FlatList,Pressable } from 'react-native'
 import React, { useEffect,useState } from 'react'
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { COLORS } from '../assets/theme'
 import { supabase } from '../services/supabase';
-const { width ,height} = Dimensions.get("window")
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { useRouter } from 'expo-router';
 
 
 const projects = () => {
+
+  const router = useRouter()
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +45,12 @@ const projects = () => {
         />
       </View>
       <View style={{ marginLeft: 10 }}>
+        <View style={styles.projectNameEdit}>
         <Text style={styles.projectName}>{item.project_name}</Text>
+        <Pressable onPress={() => router.push(`/editProject/${item.project_id}`)}>
+          <AntDesign name="edit" size={20} color="black" />
+        </Pressable>
+        </View>
         <Text style={styles.projectDescription}>{item.description}</Text>
         <Text style={styles.creationDate}>Created at: {item.created_at}</Text>
         
@@ -51,7 +61,8 @@ const projects = () => {
   return (
      <View style={styles.container}>
         <Text style={styles.title}>View all your projects</Text>
-                      
+
+        {projects.length > 0 ? (
                  <FlatList
         data={projects}
         renderItem={renderItem}
@@ -67,6 +78,13 @@ const projects = () => {
           })();
         }}
       />
+        ):(
+        <Text style={styles.noProjects}>No projects added</Text>
+        )
+        
+      }
+                      
+
   
        
   
@@ -85,7 +103,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        height:height,
+        height:screenHeight,
       },
     title:{
       marginTop:50,
@@ -119,10 +137,23 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     marginBottom:7
   },  
+    projectNameEdit: {
+    flexDirection: "row",
+    justifyContent:"space-between",
+    flex:1,
+    width:screenWidth * 0.7
+  },
     creationDate: {
     color: "#555",
     fontSize: 14,
     fontWeight:400,
     marginBottom:3
+  },
+  noProjects: {
+    color: "#555",
+    fontSize: 16,
+    fontWeight:400,
+    marginTop:6,
+    textAlign:"center"
   }
 })

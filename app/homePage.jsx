@@ -193,12 +193,17 @@ const [activeTab,setActiveTab] = useState("deposits")
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <Pressable style={styles.navItem}>
+        <Pressable style={styles.navItem}
+        onPress={()=>router.push("/homePage")}
+        >
           <AntDesign name="home" size={24} color="black" />
           <Text>Home</Text>
         </Pressable>
 
-        <Pressable style={styles.navItem}>
+        <Pressable style={styles.navItem
+        }
+          onPress={()=>router.push("/projects")}
+        >
           <MaterialCommunityIcons name="projector-screen-variant-outline" size={24} color="black" />
           <Text>Projects</Text>
         </Pressable>

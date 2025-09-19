@@ -9,6 +9,8 @@ const { SUPABASE_URL, SUPABASE_ANON_KEY } = Constants.expoConfig.extra
 const supabaseUrl = "https://okoudaeehjyozjpoaedw.supabase.co"
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rb3VkYWVlaGp5b3pqcG9hZWR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyMTM1MzYsImV4cCI6MjA3MTc4OTUzNn0.new2jR3HRlia4u5gGwdbPJ3xBQF1L-nMDjCuOEe4P0E"
 
+
+
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {
     ...(Platform.OS !== "web" ? { storage: AsyncStorage } : {}),
