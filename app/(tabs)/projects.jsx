@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View,Dimensions,FlatList,Pressable } from 'react-native'
+import { StyleSheet, Text, View,Dimensions,FlatList,Pressable,TouchableOpacity } from 'react-native'
 import React, { useEffect,useState } from 'react'
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { COLORS } from '../../assets/theme'
 import { supabase } from '../../services/supabase';
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+
 
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useRouter } from 'expo-router';
@@ -61,6 +63,20 @@ const projects = () => {
   return (
      <View style={styles.container}>
         <Text style={styles.title}>View all your projects</Text>
+
+            {/* Add a Project*/}
+              <TouchableOpacity style={styles.addProject} onPress={()=> router.push("/createProject")}>
+        
+                <TouchableOpacity   style={styles.statBox} onPress={()=>toggleActiveTab("deposits")}>
+                 
+                 <Text style={styles.addProjectText}>Add a project</Text>
+                  
+                </TouchableOpacity >
+        
+                <View style={styles.statDivider} />
+                    <FontAwesome6 name="add" size={18} color="white" />
+                    
+              </TouchableOpacity>
 
         {projects.length > 0 ? (
                  <FlatList
@@ -137,6 +153,26 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     marginBottom:7
   },  
+    addProject:{
+    flexDirection: "row",
+    justifyContent: "space-around",
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+    marginTop: "auto",
+    backgroundColor: "white",
+    borderRadius: 6,
+    height:35,
+    paddingVertical: 2,
+    alignItems: "center",
+    backgroundColor:COLORS.primaryBlue,
+    color:COLORS.white,
+    marginBottom:30,
+   
+  },
+  addProjectText:{
+    color:COLORS.white,
+    fontWeight:600
+  },
     projectNameEdit: {
     flexDirection: "row",
     justifyContent:"space-between",

@@ -9,6 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 const { width } = Dimensions.get("window")
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { useRouter } from 'expo-router';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 const HomePage = () => {
@@ -35,6 +36,11 @@ const [activeTab,setActiveTab] = useState("deposits")
   const toggleActiveTab = (tab) =>{
       setActiveTab(tab)
   }
+
+  const getFirstProject = ()=>{
+    
+  }
+
 
   return (
     <View style={styles.container}>
@@ -174,46 +180,19 @@ const [activeTab,setActiveTab] = useState("deposits")
          {/* Add a Project*/}
       <TouchableOpacity style={styles.addProject} onPress={()=> router.push("/createProject")}>
 
-        <TouchableOpacity   style={styles.statBox} onPress={()=>toggleActiveTab("deposits")}>
+        <TouchableOpacity   style={styles.statBox} >
          
-         <Text style={styles.addProjectText}>Add a project</Text>
+         <Text style={styles.addProjectText}>Send Prompt Link</Text>
           
         </TouchableOpacity >
 
         <View style={styles.statDivider} />
-            <FontAwesome6 name="add" size={18} color="white" />
+            <FontAwesome name="send" size={18} color="white" />
             
       </TouchableOpacity>
 
 
 
-  
-  
-
-
-      {/* Bottom Navigation */}
-
-      {/* <View style={styles.bottomNav}>
-        <Pressable style={styles.navItem}
-        onPress={()=>router.push("/homePage")}
-        >
-          <AntDesign name="home" size={24} color="black" />
-          <Text>Home</Text>
-        </Pressable>
-
-        <Pressable style={styles.navItem
-        }
-          onPress={()=>router.push("/projects")}
-        >
-          <MaterialCommunityIcons name="projector-screen-variant-outline" size={24} color="black" />
-          <Text>Projects</Text>
-        </Pressable>
-
-        <Pressable style={styles.navItem}>
-          <MaterialIcons name="person" size={24} color="black" />
-          <Text>Profile</Text>
-        </Pressable>
-      </View> */}
 
     </View>
   );

@@ -1,6 +1,5 @@
 import { Tabs } from "expo-router";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import Foundation from '@expo/vector-icons/Foundation';
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React, { useState } from "react";
@@ -20,7 +19,7 @@ export default function TabLayout() {
                 options={{
                     title: "Home",
                     tabBarIcon: ({ color, size }) => (
-                        <AntDesign name="home" size={24} color={color} />
+                        <Foundation name="home" size={24} color={color} />
                     ),
                 }}
             />
